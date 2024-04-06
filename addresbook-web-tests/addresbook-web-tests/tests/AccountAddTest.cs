@@ -13,12 +13,8 @@ namespace WebAddressbookTests
         [Test]
         public void AccountAddTest()
         {
-            OpenHomePage();
-            Login(new AccountData("admin", "secret"));
-            InitAccoutAdd();
             AccountAddData account = new AccountAddData("TestName", "TestLastName");
-            FillNewAccountInfo(account);
-            SubmitAccountAdd();
+            app.AccHelp.AddAccount(account);
         }
     }
 }
