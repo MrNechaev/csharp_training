@@ -79,6 +79,8 @@
     <Compile Include="tests\AccountAddTest.cs" />
     <Compile Include="tests\GroupRemovalTests.cs" />
     <Compile Include="tests\GroupModificationTests.cs" />
+    <Compile Include="tests\AccountModifyTests.cs" />
+    <Compile Include="tests\AccountRemoveTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
