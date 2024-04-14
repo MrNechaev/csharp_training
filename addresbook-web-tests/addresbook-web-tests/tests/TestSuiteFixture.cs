@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-     public class TestBase
+    [SetUpFixture]
+    internal class TestSuiteFixture
     {
-        protected ApplicationManager app;
-
-
-        [SetUp]
-        public void SetupApplicationManager()
+        [TearDown]
+        public void TeardownApplicationManager()
         {
-            app = ApplicationManager.GetInstance();
+            ApplicationManager.GetInstance().Stop();
         }
     }
 }

@@ -7,18 +7,22 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class AccountRemoveTests : TestBase
+    public class AccountRemoveTests : AuthTestBase
     {
         [Test]
         public void RemoveFromEditPage()
         {
-            app.AccHelp.RemoveFromEditPage();
+            AccountAddData newAccountData = new AccountAddData("TestName123", "TestLastName123");
+
+            app.AccHelp.RemoveFromEditPage(newAccountData);
         }
 
         [Test]
         public void RemoveFromMainPage()
         {
-            app.AccHelp.RemoveFromMainPage();
+            AccountAddData newAccountData = new AccountAddData("TestName123", "TestLastName123");
+
+            app.AccHelp.RemoveFromMainPage(newAccountData);
         }
     }
 }

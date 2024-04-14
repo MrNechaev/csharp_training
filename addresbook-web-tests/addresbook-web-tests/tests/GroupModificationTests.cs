@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupModficationTests : TestBase
+    public class GroupModficationTests : AuthTestBase
     {
         [Test]
         public void GroupModificationTest()
@@ -16,7 +16,12 @@ namespace WebAddressbookTests
             newData.Header = "rr";
             newData.Footer = "rr";
 
-            app.Groups.Modify(1, newData);
+            GroupData group = new GroupData("Групп не было");
+            group.Header = "Групп не было";
+            group.Footer = "Групп не было";
+
+            app.Navigator.GoToGroupsPage();
+            app.Groups.Modify(1, newData, group);
         }
     }
 }

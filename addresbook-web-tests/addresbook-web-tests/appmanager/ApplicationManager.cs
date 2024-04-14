@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 
@@ -22,17 +23,29 @@ namespace WebAddressbookTests
         protected GroupHelper groupHelper;
         protected AccountHelper accountHelper;
 
+        private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
-        public ApplicationManager()
+        private ApplicationManager()
         {
 
             driver = new ChromeDriver("C:/Users/igorn/chromedriver.exe");
-            baseURL = "http://localhost/addressbook";
+            baseURL = "http://localhost";
             loginHelper = new LoginHelper(this);
             navigationHelper = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);
             accountHelper = new AccountHelper(this);
 
+        }
+
+        public static ApplicationManager GetInstance()
+        {
+            if (! app.IsValueCreated)
+            {
+                ApplicationManager newInstance = new ApplicationManager();
+                newInstance.Navigator.OpenHomePage();
+                app.Value = newInstance;
+            }
+            return app.Value;
         }
 
         public IWebDriver Driver 
@@ -44,7 +57,7 @@ namespace WebAddressbookTests
         {
             try
             {
-                driver.Quit();
+                driver.Close();
             }
             catch (Exception)
             {
@@ -71,6 +84,7 @@ namespace WebAddressbookTests
         {
             get { return accountHelper; }
         }
+
 
     }
 }

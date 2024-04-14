@@ -23,7 +23,18 @@ namespace WebAddressbookTests
             InitAccoutAdd();
             FillAccountInfo(account);
             SubmitAccountAdd();
+            GoToAccountsPage();
             return this;
+        }
+
+        private void GoToAccountsPage()
+        {
+            driver.FindElement(By.LinkText("home page")).Click();
+        }
+
+        public bool NoAccountsToAction()
+        {
+            return !IsElementPresent(By.CssSelector("img[title = Edit]"));
         }
 
         public AccountHelper SubmitAccountAdd()
@@ -34,12 +45,8 @@ namespace WebAddressbookTests
 
         public AccountHelper FillAccountInfo(AccountAddData account)
         {
-            driver.FindElement(By.Name("firstname")).Click();
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(account.Name);
-            driver.FindElement(By.Name("lastname")).Click();
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(account.LastName);
+            Type(By.Name("firstname"), account.Name);
+            Type(By.Name("lastname"), account.LastName);
             return this;
         }
 
@@ -51,7 +58,7 @@ namespace WebAddressbookTests
 
         public AccountHelper InitAccoutModify()
         {
-            driver.FindElement(By.CssSelector("tbody:last-child tr:last-child img[title=Edit]")).Click();
+            driver.FindElement(By.CssSelector("img[title=Edit]")).Click();
             return this;
         }
 
@@ -71,27 +78,39 @@ namespace WebAddressbookTests
         //Удаление третьей запипи
         public AccountHelper SelectAccount()
         {
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[4]/td/input")).Click();
+            driver.FindElement(By.Name("selected[]")).Click();
             return this;
         }
 
-        public AccountHelper Modify(AccountAddData newAccountData)
-        {
+        public AccountHelper Modify(AccountAddData newAccountData, AccountAddData account)
+        { 
+            if (NoAccountsToAction())
+            {
+                AddAccount(account);
+            }
             InitAccoutModify();
             FillAccountInfo(newAccountData);
             SubmitAccountModify();
             return this;
         }
 
-        public AccountHelper RemoveFromEditPage()
+        public AccountHelper RemoveFromEditPage(AccountAddData account)
         {
+            if (NoAccountsToAction())
+            {
+                AddAccount(account);
+            }
             InitAccoutModify();
             SubmitAccountRemove();
             return this;
         }
 
-        public AccountHelper RemoveFromMainPage()
+        public AccountHelper RemoveFromMainPage(AccountAddData account)
         {
+            if (NoAccountsToAction())
+            {
+                AddAccount(account);
+            }
             SelectAccount();
             SubmitAccountRemove();
             return this;

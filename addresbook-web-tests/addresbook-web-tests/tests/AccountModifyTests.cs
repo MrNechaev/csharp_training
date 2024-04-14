@@ -7,14 +7,15 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class AccountModifyTests : TestBase
+    public class AccountModifyTests : AuthTestBase
     {
         [Test]
         public void AccountModifyTest()
         {
             AccountAddData newAccountData = new AccountAddData("TestName123", "TestLastName123");
-            
-            app.AccHelp.Modify(newAccountData);
+            AccountAddData account = new AccountAddData("TestName", "TestLastName");
+
+            app.AccHelp.Modify(newAccountData, account);
 
         }
     }
