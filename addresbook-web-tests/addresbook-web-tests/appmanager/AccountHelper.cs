@@ -94,23 +94,15 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public AccountHelper RemoveFromEditPage(AccountAddData account)
+        public AccountHelper RemoveFromEditPage()
         {
-            if (NoAccountsToAction())
-            {
-                AddAccount(account);
-            }
             InitAccoutModify();
             SubmitAccountRemove();
             return this;
         }
 
-        public AccountHelper RemoveFromMainPage(AccountAddData account)
+        public AccountHelper RemoveFromMainPage()
         {
-            if (NoAccountsToAction())
-            {
-                AddAccount(account);
-            }
             SelectAccount();
             SubmitAccountRemove();
             return this;

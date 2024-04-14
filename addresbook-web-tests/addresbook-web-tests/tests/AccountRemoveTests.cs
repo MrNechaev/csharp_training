@@ -12,9 +12,15 @@ namespace WebAddressbookTests
         [Test]
         public void RemoveFromEditPage()
         {
+
             AccountAddData newAccountData = new AccountAddData("TestName123", "TestLastName123");
 
-            app.AccHelp.RemoveFromEditPage(newAccountData);
+            if (app.AccHelp.NoAccountsToAction())
+            {
+                app.AccHelp.AddAccount(newAccountData);
+            }
+
+            app.AccHelp.RemoveFromEditPage();
         }
 
         [Test]
@@ -22,7 +28,12 @@ namespace WebAddressbookTests
         {
             AccountAddData newAccountData = new AccountAddData("TestName123", "TestLastName123");
 
-            app.AccHelp.RemoveFromMainPage(newAccountData);
+            if (app.AccHelp.NoAccountsToAction())
+            {
+                app.AccHelp.AddAccount(newAccountData);
+            }
+
+            app.AccHelp.RemoveFromMainPage();
         }
     }
 }

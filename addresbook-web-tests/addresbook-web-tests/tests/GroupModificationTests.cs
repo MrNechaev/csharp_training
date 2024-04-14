@@ -20,8 +20,13 @@ namespace WebAddressbookTests
             group.Header = "Групп не было";
             group.Footer = "Групп не было";
 
+            if (app.Groups.NoGroupsToAction())
+            {
+                app.Groups.Create(group);
+            }
+
             app.Navigator.GoToGroupsPage();
-            app.Groups.Modify(1, newData, group);
+            app.Groups.Modify(1, newData);
         }
     }
 }

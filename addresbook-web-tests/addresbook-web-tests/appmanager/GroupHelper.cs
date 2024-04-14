@@ -24,12 +24,8 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper RemoveGroup(int p, GroupData group)
+        public GroupHelper RemoveGroup(int p)
         {
-            if (NoGroupsToAction())
-            {
-                Create(group);
-            }
             SelectGroup(p);
             DeleteGroup();
             ReturnToGroupsPage();
@@ -41,12 +37,9 @@ namespace WebAddressbookTests
             return !IsElementPresent(By.ClassName("group"));
         }
 
-        public GroupHelper Modify(int p, GroupData newData, GroupData group)
+        public GroupHelper Modify(int p, GroupData newData)
         {
-            if (NoGroupsToAction())
-            {
-                Create(group);
-            }
+
             SelectGroup(p);
             InitGroupModification();
             FillGroupForm(newData);
