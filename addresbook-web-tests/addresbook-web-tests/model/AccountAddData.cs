@@ -38,7 +38,9 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-
+            int compareResult = LastName.CompareTo(other.LastName);
+            if (compareResult != 0) {
+                return compareResult; }
             return Name.CompareTo(other.Name);
         }
 
