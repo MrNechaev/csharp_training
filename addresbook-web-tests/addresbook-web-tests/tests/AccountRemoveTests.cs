@@ -26,7 +26,7 @@ namespace WebAddressbookTests
 
             app.AccHelp.RemoveFromEditPage();
             app.Navigator.OpenHomePage();
-            
+
             List<AccountAddData> newAccounts = app.AccHelp.GetAccountList();
             Assert.AreEqual(oldAccounts.Count - 1, newAccounts.Count);
         }

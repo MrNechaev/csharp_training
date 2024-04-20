@@ -65,6 +65,7 @@ namespace WebAddressbookTests
         public AccountHelper SubmitAccountModify()
         {
             driver.FindElement(By.CssSelector("input[value=Update]")).Click();
+            accountCache = null;
             return this;
 
         }
@@ -72,6 +73,7 @@ namespace WebAddressbookTests
         public AccountHelper SubmitAccountRemove()
         {
             driver.FindElement(By.CssSelector("input[value=Delete]")).Click();
+            accountCache = null;
             return this;
         }
 
@@ -108,15 +110,24 @@ namespace WebAddressbookTests
             return this;
         }
 
+        private List<AccountAddData> accountCache = null;
+         
+
+
         public List<AccountAddData> GetAccountList()
         {
-            List<AccountAddData> accounts = new List<AccountAddData>();
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("img[title=Edit]"));
-            foreach (IWebElement element in elements)
+            if (accountCache == null)
             {
-                accounts.Add(new AccountAddData(element.Text, element.Text));
+                List<AccountAddData> accounts = new List<AccountAddData>();
+                manager.Navigator.OpenHomePage();
+                ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+                foreach (IWebElement element in elements)
+                {
+                    accounts.Add(new AccountAddData(element.FindElement(By.CssSelector("td:nth-child(3)")).Text, element.FindElement(By.CssSelector("td:nth-child(2)")).Text));
+                }
             }
-            return accounts;
+            
+            return accountCache;
         }
     }
 }
