@@ -8,6 +8,7 @@ namespace WebAddressbookTests
 {
     public class AccountAddData : IEquatable<AccountAddData>, IComparable<AccountAddData>
     {
+
         public bool Equals(AccountAddData other)
         {
             if (Object.ReferenceEquals(other, null))
@@ -28,7 +29,7 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return "name=" + Name;
+            return "name" + Name;
         }
 
         public int CompareTo(AccountAddData other)

@@ -53,6 +53,7 @@ namespace WebAddressbookTests
         public AccountHelper InitAccoutAdd()
         {
             driver.FindElement(By.LinkText("add new")).Click();
+            accountCache = null;
             return this;
         }
 
@@ -110,24 +111,28 @@ namespace WebAddressbookTests
             return this;
         }
 
-        private List<AccountAddData> accountCache = null;
-         
+        private List<AccountAddData> accountCache = null;         
 
 
         public List<AccountAddData> GetAccountList()
         {
             if (accountCache == null)
             {
-                List<AccountAddData> accounts = new List<AccountAddData>();
+                accountCache = new List<AccountAddData>();
                 manager.Navigator.OpenHomePage();
                 ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
                 foreach (IWebElement element in elements)
                 {
-                    accounts.Add(new AccountAddData(element.FindElement(By.CssSelector("td:nth-child(3)")).Text, element.FindElement(By.CssSelector("td:nth-child(2)")).Text));
+                    accountCache.Add(new AccountAddData(element.FindElement(By.CssSelector("td:nth-child(3)")).Text, element.FindElement(By.CssSelector("td:nth-child(2)")).Text));
                 }
             }
-            
-            return accountCache;
+
+            return new List<AccountAddData>(accountCache);
+        }
+
+        internal int GetAccountCount()
+        {
+            return driver.FindElements(By.Name("entry")).Count;
         }
     }
 }

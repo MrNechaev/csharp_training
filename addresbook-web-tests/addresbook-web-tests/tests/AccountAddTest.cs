@@ -21,8 +21,13 @@ namespace WebAddressbookTests
 
             app.AccHelp.AddAccount(account);
 
+            Assert.AreEqual(oldAccounts.Count + 1, app.AccHelp.GetAccountCount());
+
             List<AccountAddData> newAccounts = app.AccHelp.GetAccountList();
-            Assert.AreEqual(oldAccounts.Count + 1, newAccounts.Count);
+            oldAccounts.Add(account);
+            oldAccounts.Sort();
+            newAccounts.Sort();
+            Assert.AreEqual(oldAccounts, newAccounts);
         }
     }
 }
