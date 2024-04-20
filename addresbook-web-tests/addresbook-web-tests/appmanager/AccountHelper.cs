@@ -107,5 +107,16 @@ namespace WebAddressbookTests
             SubmitAccountRemove();
             return this;
         }
+
+        public List<AccountAddData> GetAccountList()
+        {
+            List<AccountAddData> accounts = new List<AccountAddData>();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("img[title=Edit]"));
+            foreach (IWebElement element in elements)
+            {
+                accounts.Add(new AccountAddData(element.Text, element.Text));
+            }
+            return accounts;
+        }
     }
 }

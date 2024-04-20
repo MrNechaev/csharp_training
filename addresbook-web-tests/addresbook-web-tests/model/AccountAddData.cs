@@ -6,10 +6,43 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class AccountAddData
+    public class AccountAddData : IEquatable<AccountAddData>, IComparable<AccountAddData>
     {
         private string name;
         private string lastName;
+
+        public bool Equals(AccountAddData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (Object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return name == other.name;
+        }
+
+        public int GetHashCode()
+        {
+            return name.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return "name=" + name;
+        }
+
+        public int CompareTo(AccountAddData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+
+            return name.CompareTo(other.name);
+        }
 
         public AccountAddData(string name, string lastName)
         {

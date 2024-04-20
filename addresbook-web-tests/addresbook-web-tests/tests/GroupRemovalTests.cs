@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -17,12 +18,18 @@ namespace WebAddressbookTests
             group.Header = "Групп не было";
             group.Footer = "Групп не было";
 
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            app.Navigator.GoToGroupsPage();
             if (app.Groups.NoGroupsToAction())
             {
                 app.Groups.Create(group);
             }
-            app.Navigator.GoToGroupsPage();
-            app.Groups.RemoveGroup(1);
+            app.Groups.RemoveGroup(0);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups.RemoveAt(0);
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }
