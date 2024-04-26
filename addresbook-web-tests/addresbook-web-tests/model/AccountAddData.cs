@@ -10,13 +10,20 @@ namespace WebAddressbookTests
     public class AccountAddData : IEquatable<AccountAddData>, IComparable<AccountAddData>
     {
         private string allPhones;
+        private string accountProperties;
+
+        public AccountAddData()
+        {
+            
+        }
 
         public AccountAddData(string name, string lastName, string address)
         {
             Name = name;
             LastName = lastName;
             Address = address;
-        }
+        }       
+
 
         public string Name { get; set; }
 
@@ -41,6 +48,25 @@ namespace WebAddressbookTests
             set
             {
                 allPhones = value;
+            }
+        }
+
+        public string AccountProperties
+        {
+            get
+            {
+                if (accountProperties != null)
+                {
+                    return accountProperties;
+                }
+                else
+                {
+                    return (Name + " " + LastName + "\r\n" + Address).Trim();
+                }
+            }
+            set
+            {
+                accountProperties = value;
             }
         }
 

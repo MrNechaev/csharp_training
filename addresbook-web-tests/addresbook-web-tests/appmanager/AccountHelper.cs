@@ -65,6 +65,12 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public AccountHelper InitOpenProperties(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[6].FindElement(By.TagName("a")).Click();
+            return this;
+        }
+
         public AccountHelper SubmitAccountModify()
         {
             driver.FindElement(By.CssSelector("input[value=Update]")).Click();
@@ -88,7 +94,7 @@ namespace WebAddressbookTests
         }
 
         public AccountHelper Modify(AccountAddData newAccountData, AccountAddData account)
-        { 
+        {
             if (NoAccountsToAction())
             {
                 AddAccount(account);
@@ -113,7 +119,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        private List<AccountAddData> accountCache = null;         
+        private List<AccountAddData> accountCache = null;
 
 
         public List<AccountAddData> GetAccountList()
@@ -125,7 +131,7 @@ namespace WebAddressbookTests
                 ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
                 foreach (IWebElement element in elements)
                 {
-                    accountCache.Add(new AccountAddData(element.FindElement(By.CssSelector("td:nth-child(3)")).Text, element.FindElement(By.CssSelector("td:nth-child(2)")).Text, 
+                    accountCache.Add(new AccountAddData(element.FindElement(By.CssSelector("td:nth-child(3)")).Text, element.FindElement(By.CssSelector("td:nth-child(2)")).Text,
                         element.FindElement(By.CssSelector("td:nth-child(4)")).Text));
                 }
             }
@@ -168,8 +174,8 @@ namespace WebAddressbookTests
 
             return new AccountAddData(firstName, lastName, address)
             {
-                HomePhone = homePhone, 
-                MobilePhone = mobilePhone, 
+                HomePhone = homePhone,
+                MobilePhone = mobilePhone,
                 WorkPhone = workPhone
             };
         }
@@ -180,6 +186,19 @@ namespace WebAddressbookTests
             string text = driver.FindElement(By.TagName("label")).Text;
             Match m = new Regex(@"\d+").Match(text);
             return Int32.Parse(m.Value);
+        }
+
+        public AccountAddData GetAccountInformationFromPropertyPage(int v)
+        {
+            manager.Navigator.OpenHomePage();
+            InitOpenProperties(0);
+
+            string accountProperties = driver.FindElement(By.Id("content")).Text;
+
+            return new AccountAddData
+            {
+                AccountProperties = accountProperties
+            };
         }
     }
 }
