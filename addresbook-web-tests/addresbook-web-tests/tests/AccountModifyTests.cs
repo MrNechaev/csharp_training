@@ -14,8 +14,8 @@ namespace WebAddressbookTests
         [Test]
         public void AccountModifyTest()
         {
-            AccountAddData newAccountData = new AccountAddData("TestName123", "TestLastName123");
-            AccountAddData account = new AccountAddData("TestName", "TestLastName");
+            AccountAddData newAccountData = new AccountAddData("TestName123", "TestLastName123", "AnotherTestAddress");
+            AccountAddData account = new AccountAddData("TestName", "TestLastName", "TestAddress");
 
             List<AccountAddData> oldAccounts = app.AccHelp.GetAccountList();
 
@@ -24,10 +24,10 @@ namespace WebAddressbookTests
             List<AccountAddData> newAccounts = app.AccHelp.GetAccountList();
             oldAccounts[0].Name = newAccountData.Name;
             oldAccounts[0].LastName = newAccountData.LastName;
+            oldAccounts[0].Address = newAccountData.Address;
             oldAccounts.Sort();
             newAccounts.Sort();
             Assert.AreEqual(oldAccounts, newAccounts);
-
         }
     }
 }

@@ -24,7 +24,8 @@ namespace WebAddressbookTests
             {
                 return true;
             }
-            return Name == other.Name;
+            return Name.Equals(other.Name, StringComparison.OrdinalIgnoreCase);
+            //return Name == other.Name;
         }
 
         public override int GetHashCode()

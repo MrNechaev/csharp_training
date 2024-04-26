@@ -15,7 +15,7 @@ namespace WebAddressbookTests
         [Test]
         public void AccountAddTest()
         {
-            AccountAddData account = new AccountAddData("TestName", "TestLastName");
+            AccountAddData account = new AccountAddData("TestName", "TestLastName", "TestAddress");
 
             List<AccountAddData> oldAccounts = app.AccHelp.GetAccountList();
 

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
@@ -47,6 +48,7 @@ namespace WebAddressbookTests
         {
             Type(By.Name("firstname"), account.Name);
             Type(By.Name("lastname"), account.LastName);
+            Type(By.Name("address"), account.Address);
             return this;
         }
 
@@ -57,9 +59,9 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public AccountHelper InitAccoutModify()
+        public AccountHelper InitAccoutModify(int index)
         {
-            driver.FindElement(By.CssSelector("img[title=Edit]")).Click();
+            driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")).Click();
             return this;
         }
 
@@ -91,7 +93,7 @@ namespace WebAddressbookTests
             {
                 AddAccount(account);
             }
-            InitAccoutModify();
+            InitAccoutModify(0);
             FillAccountInfo(newAccountData);
             SubmitAccountModify();
             return this;
@@ -99,7 +101,7 @@ namespace WebAddressbookTests
 
         public AccountHelper RemoveFromEditPage()
         {
-            InitAccoutModify();
+            InitAccoutModify(0);
             SubmitAccountRemove();
             return this;
         }
@@ -123,7 +125,8 @@ namespace WebAddressbookTests
                 ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
                 foreach (IWebElement element in elements)
                 {
-                    accountCache.Add(new AccountAddData(element.FindElement(By.CssSelector("td:nth-child(3)")).Text, element.FindElement(By.CssSelector("td:nth-child(2)")).Text));
+                    accountCache.Add(new AccountAddData(element.FindElement(By.CssSelector("td:nth-child(3)")).Text, element.FindElement(By.CssSelector("td:nth-child(2)")).Text, 
+                        element.FindElement(By.CssSelector("td:nth-child(4)")).Text));
                 }
             }
 
@@ -133,6 +136,50 @@ namespace WebAddressbookTests
         internal int GetAccountCount()
         {
             return driver.FindElements(By.Name("entry")).Count;
+        }
+
+        public AccountAddData GetAccountInformationFromTable(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"));
+
+            string lastName = cells[1].Text;
+            string firstName = cells[2].Text;
+            string address = cells[3].Text;
+            string allPhones = cells[5].Text;
+
+            return new AccountAddData(firstName, lastName, address)
+            {
+                AllPhones = allPhones,
+            };
+        }
+
+        public AccountAddData GetAccountInformationFromEditForm(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            InitAccoutModify(0);
+
+            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+
+            return new AccountAddData(firstName, lastName, address)
+            {
+                HomePhone = homePhone, 
+                MobilePhone = mobilePhone, 
+                WorkPhone = workPhone
+            };
+        }
+
+        public int GetNumberOfSearchResults()
+        {
+            manager.Navigator.OpenHomePage();
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
         }
     }
 }
