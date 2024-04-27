@@ -11,12 +11,22 @@ namespace WebAddressbookTests
     [TestFixture]
      public class AccountAddTests : AuthTestBase
     {
-
-        [Test]
-        public void AccountAddTest()
+        public static IEnumerable<AccountAddData> RandomAccountAddDataProvider()
         {
-            AccountAddData account = new AccountAddData("TestName", "TestLastName", "TestAddress");
+            List<AccountAddData> account = new List<AccountAddData>();
+            for (int i = 0; i < 1; i++)
+            {
+                account.Add(new AccountAddData(GenerateRandomSting(30), GenerateRandomSting(30), GenerateRandomSting(100))
+                {
 
+                });
+            }
+            return account;
+        }
+
+        [Test, TestCaseSource("RandomAccountAddDataProvider")]
+        public void AccountAddTest(AccountAddData account)
+        {
             List<AccountAddData> oldAccounts = app.AccHelp.GetAccountList();
 
             app.AccHelp.AddAccount(account);
