@@ -16,9 +16,9 @@ namespace WebAddressbookTests
             List<AccountAddData> account = new List<AccountAddData>();
             for (int i = 0; i < 1; i++)
             {
-                account.Add(new AccountAddData(GenerateRandomSting(30), GenerateRandomSting(30), GenerateRandomSting(100))
+                account.Add(new AccountAddData(GenerateRandomSting(10), GenerateRandomSting(10))
                 {
-
+                    Address = GenerateRandomSting(15)
                 });
             }
             return account;

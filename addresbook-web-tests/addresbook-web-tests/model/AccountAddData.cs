@@ -10,6 +10,7 @@ namespace WebAddressbookTests
     public class AccountAddData : IEquatable<AccountAddData>, IComparable<AccountAddData>
     {
         private string allPhones;
+        private string allEmails;
         private string accountProperties;
 
         public AccountAddData()
@@ -17,21 +18,44 @@ namespace WebAddressbookTests
             
         }
 
+        public AccountAddData(string name, string lastName)
+        {
+            Name = name;
+            LastName = lastName;
+            Address = "TestAddress";
+            MobilePhone = "11111111";
+            WorkPhone = "22222222";
+            HomePhone = "33333333";
+            Email = "email 1";
+            Email_2 = "email 2";
+            Email_3 = "email 3";
+        }
+
         public AccountAddData(string name, string lastName, string address)
         {
             Name = name;
             LastName = lastName;
             Address = address;
-        }       
+            MobilePhone = "121212";
+            WorkPhone = "32323223";
+            HomePhone = "600000000";
+            Email = "wrong email";
+            Email_2 = "wrong email 2";
+            Email_3 = "wrong email 3";
+        }
 
 
         public string Name { get; set; }
-
         public string LastName { get; set; }
         public string Address { get; set; }
-        public string HomePhone { get; set; }
         public string MobilePhone { get; set; }
         public string WorkPhone { get; set; }
+        public string HomePhone { get; set; }
+        public string Email { get; set; }
+        public string Email_2 { get; set; }
+        public string Email_3 { get; set; }
+
+       
         public string AllPhones 
         { 
             get 
@@ -51,6 +75,48 @@ namespace WebAddressbookTests
             }
         }
 
+        public string AllPhonesFromProperties
+        {
+            get
+            {
+                if (AllPhonesFromProperties != null)
+                {
+                    return AllPhonesFromProperties;
+                }
+                else
+                { 
+                    if (string.IsNullOrEmpty(HomePhone) && string.IsNullOrEmpty(MobilePhone) && string.IsNullOrEmpty(WorkPhone))
+                    {
+                        return "";
+                    }
+                    return (HomePhone + MobilePhone + WorkPhone) + "\r\n";
+                }
+            }
+            set
+            {
+                AllPhonesFromProperties = value;
+            }
+        }
+
+        public string AllEmails
+        {
+            get
+            {
+                if (allEmails != null)
+                {
+                    return allEmails;
+                }
+                else
+                {
+                    return (CleanUp(Email) + CleanUp(Email_2) + CleanUp(Email_3)).Trim();
+                }
+            }
+            set
+            {
+                allEmails = value;
+            }
+        }
+
         public string AccountProperties
         {
             get
@@ -61,7 +127,9 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (Name + " " + LastName + "\r\n" + Address).Trim();
+                    return (Name + " " + LastName + "\r\n" + Address + "\r\n\r\nH: "
+                            + HomePhone + "\r\nM: " + MobilePhone + "\r\nW: " + WorkPhone + "\r\n\r\n"
+                            + Email + "\r\n" + Email_2 + "\r\n" + Email_3).Trim();
                 }
             }
             set

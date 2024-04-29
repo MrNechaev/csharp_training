@@ -15,7 +15,7 @@ namespace WebAddressbookTests
         public void RemoveFromEditPage()
         {
 
-            AccountAddData newAccountData = new AccountAddData("TestName123", "TestLastName123", "AnotherTestAddress");
+            AccountAddData newAccountData = new AccountAddData("TestName123", "TestLastName123");
 
             List<AccountAddData> oldAccounts = app.AccHelp.GetAccountList();
 
@@ -34,7 +34,7 @@ namespace WebAddressbookTests
         [Test]
         public void RemoveFromMainPage()
         {
-            AccountAddData newAccountData = new AccountAddData("TestName123", "TestLastName123", "AnotherTestAddress");
+            AccountAddData newAccountData = new AccountAddData("TestName123", "TestLastName123");
 
             List<AccountAddData> oldAccounts = app.AccHelp.GetAccountList();
 

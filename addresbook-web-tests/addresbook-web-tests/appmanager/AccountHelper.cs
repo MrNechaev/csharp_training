@@ -49,6 +49,13 @@ namespace WebAddressbookTests
             Type(By.Name("firstname"), account.Name);
             Type(By.Name("lastname"), account.LastName);
             Type(By.Name("address"), account.Address);
+            Type(By.Name("home"), account.HomePhone);
+            Type(By.Name("mobile"), account.MobilePhone);
+            Type(By.Name("work"), account.WorkPhone);
+            Type(By.Name("email"), account.Email);
+            Type(By.Name("email2"), account.Email_2);
+            Type(By.Name("email3"), account.Email_3);
+
             return this;
         }
 
@@ -131,8 +138,7 @@ namespace WebAddressbookTests
                 ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
                 foreach (IWebElement element in elements)
                 {
-                    accountCache.Add(new AccountAddData(element.FindElement(By.CssSelector("td:nth-child(3)")).Text, element.FindElement(By.CssSelector("td:nth-child(2)")).Text,
-                        element.FindElement(By.CssSelector("td:nth-child(4)")).Text));
+                    accountCache.Add(new AccountAddData(element.FindElement(By.CssSelector("td:nth-child(3)")).Text, element.FindElement(By.CssSelector("td:nth-child(2)")).Text));
                 }
             }
 
@@ -153,17 +159,20 @@ namespace WebAddressbookTests
             string firstName = cells[2].Text;
             string address = cells[3].Text;
             string allPhones = cells[5].Text;
+            string allEmails = cells[4].Text;
 
-            return new AccountAddData(firstName, lastName, address)
+            return new AccountAddData(firstName, lastName)
             {
+                Address = address,
                 AllPhones = allPhones,
+                AllEmails = allEmails,
             };
         }
 
         public AccountAddData GetAccountInformationFromEditForm(int index)
         {
             manager.Navigator.OpenHomePage();
-            InitAccoutModify(0);
+            InitAccoutModify(index);
 
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
@@ -171,12 +180,19 @@ namespace WebAddressbookTests
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string email = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email_2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email_3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
 
-            return new AccountAddData(firstName, lastName, address)
+            return new AccountAddData(firstName, lastName)
             {
+                Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
-                WorkPhone = workPhone
+                WorkPhone = workPhone,
+                Email = email,
+                Email_2 = email_2,
+                Email_3 = email_3,
             };
         }
 
@@ -188,10 +204,10 @@ namespace WebAddressbookTests
             return Int32.Parse(m.Value);
         }
 
-        public AccountAddData GetAccountInformationFromPropertyPage(int v)
+        public AccountAddData GetAccountInformationFromPropertyPage(int index)
         {
             manager.Navigator.OpenHomePage();
-            InitOpenProperties(0);
+            InitOpenProperties(index);
 
             string accountProperties = driver.FindElement(By.Id("content")).Text;
 
