@@ -55,7 +55,60 @@ namespace WebAddressbookTests
         public string Email_2 { get; set; }
         public string Email_3 { get; set; }
 
-       
+        public string HomePhonePresents(string homePhone)
+        {
+            if (string.IsNullOrEmpty(homePhone))
+            {
+                return "";
+            }
+            return "H: " + homePhone + "\r\n";
+        }
+
+        public string MobilePhonePresents(string mobilePhone)
+        {
+            if (string.IsNullOrEmpty(mobilePhone))
+            {
+                return "";
+            }
+            return "M: " + mobilePhone + "\r\n";
+        }
+
+        public string WorkPhonePresents(string workPhone)
+        {
+            if (string.IsNullOrEmpty(workPhone))
+            {
+                return "";
+            }
+            return "W: " + workPhone + "\r\n";
+        }
+
+        public string PropertiesPresents(string property)
+        {
+            if (string.IsNullOrEmpty(property))
+            {
+                return "";
+            }
+            return property + "\r\n";
+        }
+
+        public string NamePresents(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                return "";
+            }
+            return name + " ";
+        }
+
+        public string LastNamePresents(string lastName)
+        {
+            if (string.IsNullOrEmpty(lastName))
+            {
+                return "";
+            }
+            return lastName + " ";
+        }
+
         public string AllPhones 
         { 
             get 
@@ -89,7 +142,7 @@ namespace WebAddressbookTests
                     {
                         return "";
                     }
-                    return (HomePhone + MobilePhone + WorkPhone) + "\r\n";
+                    return (HomePhonePresents(HomePhone) + MobilePhonePresents(MobilePhone) + WorkPhonePresents(WorkPhone)) + "\r\n";
                 }
             }
             set
@@ -127,9 +180,9 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (Name + " " + LastName + "\r\n" + Address + "\r\n\r\nH: "
-                            + HomePhone + "\r\nM: " + MobilePhone + "\r\nW: " + WorkPhone + "\r\n\r\n"
-                            + Email + "\r\n" + Email_2 + "\r\n" + Email_3).Trim();
+                    return ((NamePresents(Name) + LastNamePresents(LastName)).Trim() + "\r\n" + PropertiesPresents(Address) + "\r\n"
+                            + AllPhonesFromProperties 
+                            + PropertiesPresents(Email) + "\r\n" + PropertiesPresents(Email_2) + "\r\n" + PropertiesPresents(Email_3)).Trim();
                 }
             }
             set

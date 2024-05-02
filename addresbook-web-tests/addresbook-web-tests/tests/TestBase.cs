@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium.DevTools.V121.Page;
 using System;
 using System.Collections.Generic;
 using System.Linq;

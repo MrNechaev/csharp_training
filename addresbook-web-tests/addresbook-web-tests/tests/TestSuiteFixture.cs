@@ -10,10 +10,10 @@ namespace WebAddressbookTests
     [SetUpFixture]
     internal class TestSuiteFixture
     {
-        [TearDown]
-        public void TeardownApplicationManager()
-        {
-            ApplicationManager.GetInstance().Stop();
-        }
+       [TearDown]
+       public void TeardownApplicationManager()
+       {
+         ApplicationManager.GetInstance().Stop();
+       }
     }
 }

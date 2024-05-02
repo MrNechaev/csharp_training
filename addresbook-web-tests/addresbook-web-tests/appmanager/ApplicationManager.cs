@@ -55,13 +55,13 @@ namespace WebAddressbookTests
 
         public void Stop()
         {
-            try
+          try
             {
-                driver.Close();
+              driver.Close();
             }
-            catch (Exception)
+           catch (Exception)
             {
-                // Ignore errors if unable to close the browser
+              // Ignore errors if unable to close the browser
             }
         }
 
