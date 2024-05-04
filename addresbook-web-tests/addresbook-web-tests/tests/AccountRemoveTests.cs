@@ -15,9 +15,9 @@ namespace WebAddressbookTests
         public void RemoveFromEditPage()
         {
 
-            AccountAddData newAccountData = new AccountAddData("TestName123", "TestLastName123");
+            ContactData newAccountData = new ContactData("TestName123", "TestLastName123");
 
-            List<AccountAddData> oldAccounts = app.AccHelp.GetAccountList();
+            List<ContactData> oldAccounts = app.AccHelp.GetAccountList();
 
             if (app.AccHelp.NoAccountsToAction())
             {
@@ -27,16 +27,16 @@ namespace WebAddressbookTests
             app.AccHelp.RemoveFromEditPage();
             app.Navigator.OpenHomePage();
 
-            List<AccountAddData> newAccounts = app.AccHelp.GetAccountList();
+            List<ContactData> newAccounts = app.AccHelp.GetAccountList();
             Assert.AreEqual(oldAccounts.Count - 1, newAccounts.Count);
         }
 
         [Test]
         public void RemoveFromMainPage()
         {
-            AccountAddData newAccountData = new AccountAddData("TestName123", "TestLastName123");
+            ContactData newAccountData = new ContactData("TestName123", "TestLastName123");
 
-            List<AccountAddData> oldAccounts = app.AccHelp.GetAccountList();
+            List<ContactData> oldAccounts = app.AccHelp.GetAccountList();
 
             if (app.AccHelp.NoAccountsToAction())
             {
@@ -46,7 +46,7 @@ namespace WebAddressbookTests
             app.AccHelp.RemoveFromMainPage();
             app.Navigator.OpenHomePage();
 
-            List<AccountAddData> newAccounts = app.AccHelp.GetAccountList();
+            List<ContactData> newAccounts = app.AccHelp.GetAccountList();
             Assert.AreEqual(oldAccounts.Count - 1, newAccounts.Count);
         }
     }

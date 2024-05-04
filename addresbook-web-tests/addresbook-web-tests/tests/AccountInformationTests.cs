@@ -14,8 +14,8 @@ namespace WebAddressbookTests
         [Test]
         public void TestAccountInformation()
         {
-            AccountAddData fromTable =  app.AccHelp.GetAccountInformationFromTable(0);
-            AccountAddData fromForm = app.AccHelp.GetAccountInformationFromEditForm(0);
+            ContactData fromTable =  app.AccHelp.GetAccountInformationFromTable(0);
+            ContactData fromForm = app.AccHelp.GetAccountInformationFromEditForm(0);
 
             //verification
             Assert.AreEqual(fromTable, fromForm);
@@ -26,8 +26,8 @@ namespace WebAddressbookTests
         [Test]
         public void TestAccountInformationFromPropertyPage()
         {
-            AccountAddData fromPropertyPage = app.AccHelp.GetAccountInformationFromPropertyPage(0);
-            AccountAddData fromForm = app.AccHelp.GetAccountInformationFromEditForm(0);
+            ContactData fromPropertyPage = app.AccHelp.GetAccountInformationFromPropertyPage(0);
+            ContactData fromForm = app.AccHelp.GetAccountInformationFromEditForm(0);
 
             //verification
             Assert.AreEqual(fromPropertyPage.AccountProperties, fromForm.AccountProperties);

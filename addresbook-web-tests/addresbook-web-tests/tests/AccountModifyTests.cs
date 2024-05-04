@@ -14,14 +14,14 @@ namespace WebAddressbookTests
         [Test]
         public void AccountModifyTest()
         {
-            AccountAddData newAccountData = new AccountAddData("TestName123", "TestLastName123", "AnotherAddress");
-            AccountAddData account = new AccountAddData("TestName", "TestLastName");
+            ContactData newAccountData = new ContactData("TestName123", "TestLastName123", "AnotherAddress");
+            ContactData account = new ContactData("TestName", "TestLastName");
 
-            List<AccountAddData> oldAccounts = app.AccHelp.GetAccountList();
+            List<ContactData> oldAccounts = app.AccHelp.GetAccountList();
 
             app.AccHelp.Modify(newAccountData, account);
 
-            List<AccountAddData> newAccounts = app.AccHelp.GetAccountList();
+            List<ContactData> newAccounts = app.AccHelp.GetAccountList();
             oldAccounts[0].Name = newAccountData.Name;
             oldAccounts[0].LastName = newAccountData.LastName;
             oldAccounts[0].Address = newAccountData.Address;

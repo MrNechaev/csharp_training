@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class AccountAddData : IEquatable<AccountAddData>, IComparable<AccountAddData>
+    public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
         private string allEmails;
         private string accountProperties;
 
-        public AccountAddData()
+        public ContactData()
         {
             
         }
 
-        public AccountAddData(string name, string lastName)
+        public ContactData(string name, string lastName)
         {
             Name = name;
             LastName = lastName;
@@ -31,7 +31,7 @@ namespace WebAddressbookTests
             Email_3 = "email 3";
         }
 
-        public AccountAddData(string name, string lastName, string address)
+        public ContactData(string name, string lastName, string address)
         {
             Name = name;
             LastName = lastName;
@@ -201,7 +201,7 @@ namespace WebAddressbookTests
             return Regex.Replace(phone, "[ -()]", "") + "\r\n";
         }
 
-        public bool Equals(AccountAddData other)
+        public bool Equals(ContactData other)
         {
             if (Object.ReferenceEquals(other, null))
             {
@@ -224,7 +224,7 @@ namespace WebAddressbookTests
             return "name" + Name + "\nlastname" + LastName + "\naddress" + Address;
         }
 
-        public int CompareTo(AccountAddData other)
+        public int CompareTo(ContactData other)
         {
             if (Object.ReferenceEquals(other, null))
             {

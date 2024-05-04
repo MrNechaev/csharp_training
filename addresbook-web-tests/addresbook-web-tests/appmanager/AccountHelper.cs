@@ -19,7 +19,7 @@ namespace WebAddressbookTests
             this.manager = manager;
         }
 
-        public AccountHelper AddAccount(AccountAddData account)
+        public AccountHelper AddAccount(ContactData account)
         {
             InitAccoutAdd();
             FillAccountInfo(account);
@@ -44,7 +44,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public AccountHelper FillAccountInfo(AccountAddData account)
+        public AccountHelper FillAccountInfo(ContactData account)
         {
             Type(By.Name("firstname"), account.Name);
             Type(By.Name("lastname"), account.LastName);
@@ -100,7 +100,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public AccountHelper Modify(AccountAddData newAccountData, AccountAddData account)
+        public AccountHelper Modify(ContactData newAccountData, ContactData account)
         {
             if (NoAccountsToAction())
             {
@@ -126,23 +126,23 @@ namespace WebAddressbookTests
             return this;
         }
 
-        private List<AccountAddData> accountCache = null;
+        private List<ContactData> accountCache = null;
 
 
-        public List<AccountAddData> GetAccountList()
+        public List<ContactData> GetAccountList()
         {
             if (accountCache == null)
             {
-                accountCache = new List<AccountAddData>();
+                accountCache = new List<ContactData>();
                 manager.Navigator.OpenHomePage();
                 ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
                 foreach (IWebElement element in elements)
                 {
-                    accountCache.Add(new AccountAddData(element.FindElement(By.CssSelector("td:nth-child(3)")).Text, element.FindElement(By.CssSelector("td:nth-child(2)")).Text));
+                    accountCache.Add(new ContactData(element.FindElement(By.CssSelector("td:nth-child(3)")).Text, element.FindElement(By.CssSelector("td:nth-child(2)")).Text));
                 }
             }
 
-            return new List<AccountAddData>(accountCache);
+            return new List<ContactData>(accountCache);
         }
 
         internal int GetAccountCount()
@@ -150,7 +150,7 @@ namespace WebAddressbookTests
             return driver.FindElements(By.Name("entry")).Count;
         }
 
-        public AccountAddData GetAccountInformationFromTable(int index)
+        public ContactData GetAccountInformationFromTable(int index)
         {
             manager.Navigator.OpenHomePage();
             IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"));
@@ -161,7 +161,7 @@ namespace WebAddressbookTests
             string allPhones = cells[5].Text;
             string allEmails = cells[4].Text;
 
-            return new AccountAddData(firstName, lastName)
+            return new ContactData(firstName, lastName)
             {
                 Address = address,
                 AllPhones = allPhones,
@@ -169,7 +169,7 @@ namespace WebAddressbookTests
             };
         }
 
-        public AccountAddData GetAccountInformationFromEditForm(int index)
+        public ContactData GetAccountInformationFromEditForm(int index)
         {
             manager.Navigator.OpenHomePage();
             InitAccoutModify(index);
@@ -184,7 +184,7 @@ namespace WebAddressbookTests
             string email_2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string email_3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
 
-            return new AccountAddData(firstName, lastName)
+            return new ContactData(firstName, lastName)
             {
                 Address = address,
                 HomePhone = homePhone,
@@ -204,14 +204,14 @@ namespace WebAddressbookTests
             return Int32.Parse(m.Value);
         }
 
-        public AccountAddData GetAccountInformationFromPropertyPage(int index)
+        public ContactData GetAccountInformationFromPropertyPage(int index)
         {
             manager.Navigator.OpenHomePage();
             InitOpenProperties(index);
 
             string accountProperties = driver.FindElement(By.Id("content")).Text;
 
-            return new AccountAddData
+            return new ContactData
             {
                 AccountProperties = accountProperties
             };
