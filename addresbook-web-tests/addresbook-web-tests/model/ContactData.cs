@@ -148,7 +148,7 @@ namespace WebAddressbookTests
             }
             set
             {
-                AllPhonesFromProperties = value;
+                allPhonesFromProperties = value;
             }
         }
 
