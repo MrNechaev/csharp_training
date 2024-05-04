@@ -94,6 +94,9 @@
     <Compile Include="tests\TestSuiteFixture.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="accounts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

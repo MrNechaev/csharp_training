@@ -53,7 +53,7 @@ namespace WebAddressbookTests
             return JsonConvert.DeserializeObject<List<ContactData>>(File.ReadAllText(@"accounts.json"));
         }
 
-        [Test, TestCaseSource("AccountDataFromXmlFile")]
+        [Test, TestCaseSource("AccountDataFromJsonFile")]
         public void AccountAddTest(ContactData account)
         {
             List<ContactData> oldAccounts = app.AccHelp.GetAccountList();

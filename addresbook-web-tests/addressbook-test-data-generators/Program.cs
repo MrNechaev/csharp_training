@@ -72,7 +72,11 @@ namespace addressbook_test_data_generators
 
                 for (int t = 0; t < count; t++)
                 {
-                    accounts.Add(new ContactData(TestBase.GenerateRandomSting(10), TestBase.GenerateRandomSting(10)));
+                    accounts.Add(new ContactData()
+                    {
+                        Name = TestBase.GenerateRandomSting(10),
+                        LastName = TestBase.GenerateRandomSting(10)
+                    });
                 }
 
                         StreamWriter writer = new StreamWriter(args[2]);
