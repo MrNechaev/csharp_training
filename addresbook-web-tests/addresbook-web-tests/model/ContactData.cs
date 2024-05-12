@@ -67,9 +67,11 @@ namespace WebAddressbookTests
         public string Email_2 { get; set; }
         [Column(Name = "email3")]
         public string Email_3 { get; set; }
-       
-        [Column(Name = "id"), PrimaryKey, Identity]
+        [Column(Name = "id"), PrimaryKey]
         public string Id { get; set; }
+        [Column(Name = "Deprecated")]
+        public string Deprecated { get; set; }
+
         public string HomePhonePresents(string homePhone)
         {
             if (string.IsNullOrEmpty(homePhone))
@@ -255,7 +257,7 @@ namespace WebAddressbookTests
         {
             using (AddressBookDB db = new AddressBookDB())
             {
-                return (from c in db.Accounts select c).ToList();
+                return (from c in db.Accounts.Where(x => x.Deprecated == null) select c).ToList();
             }
         }
 

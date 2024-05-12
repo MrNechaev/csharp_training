@@ -135,6 +135,7 @@
     <Compile Include="model\ContactData.cs" />
     <Compile Include="appmanager\AccountHelper.cs" />
     <Compile Include="appmanager\ApplicationManager.cs" />
+    <Compile Include="model\GroupContactRelation.cs" />
     <Compile Include="model\GroupData.cs" />
     <Compile Include="appmanager\GroupHelper.cs" />
     <Compile Include="appmanager\HelperBase.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="tests\AccountTestBase.cs" />
     <Compile Include="tests\AuthTestBase.cs" />
     <Compile Include="tests\GroupTestBase.cs" />
+    <Compile Include="tests\RemovingAccountFromGroupTests.cs" />
     <Compile Include="tests\SearchTests.cs" />
     <Compile Include="tests\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -155,6 +157,7 @@
     <Compile Include="tests\AccountRemoveTests.cs" />
     <Compile Include="tests\LoginTests.cs" />
     <Compile Include="tests\TestSuiteFixture.cs" />
+    <Compile Include="tests\AddingAccountToGroupTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="accounts.json">

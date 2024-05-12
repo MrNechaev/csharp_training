@@ -235,5 +235,53 @@ namespace WebAddressbookTests
                 AccountProperties = accountProperties
             };
         }
+
+        public void AddAccountToGroup(ContactData contact, GroupData group)
+        {
+            ClearGroupFilter();
+            SelectContactById(contact.Id);
+            SelectGroupToAdd(group.Name);
+            SubmitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(20)).Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        public void SubmitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        public void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        public void SelectContactById(string contactId)
+        {
+            driver.FindElement(By.XPath($"//input[@name='selected[]' and @value='{contactId}']")).Click();
+        }
+
+        public void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
+        internal void RemoveContactFromGroup(ContactData contactsInGroups, GroupData group)
+        {
+            SelectGroupToRemove(group.Name);
+            SelectContactById(contactsInGroups.Id);
+            CommitRemovingContactFromGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        private void CommitRemovingContactFromGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
+
+        private void SelectGroupToRemove(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
+        }
     }
 }
