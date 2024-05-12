@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class AccountModifyTests : AuthTestBase
+    public class AccountModifyTests : AccountTestBase
     {
         [Test]
         public void AccountModifyTest()
@@ -17,11 +17,12 @@ namespace WebAddressbookTests
             ContactData newAccountData = new ContactData("TestName123", "TestLastName123", "AnotherAddress");
             ContactData account = new ContactData("TestName", "TestLastName");
 
-            List<ContactData> oldAccounts = app.AccHelp.GetAccountList();
+            List<ContactData> oldAccounts = ContactData.GetAll();
+            ContactData toBeModify = oldAccounts[0];
 
-            app.AccHelp.Modify(newAccountData, account);
+            app.AccHelp.Modify(toBeModify, newAccountData);
 
-            List<ContactData> newAccounts = app.AccHelp.GetAccountList();
+            List<ContactData> newAccounts = ContactData.GetAll();
             oldAccounts[0].Name = newAccountData.Name;
             oldAccounts[0].LastName = newAccountData.LastName;
             oldAccounts[0].Address = newAccountData.Address;

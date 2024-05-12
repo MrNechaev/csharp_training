@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class AccountRemoveTests : AuthTestBase
+    public class AccountRemoveTests : AccountTestBase
     {
         [Test]
         public void RemoveFromEditPage()
@@ -17,7 +17,7 @@ namespace WebAddressbookTests
 
             ContactData newAccountData = new ContactData("TestName123", "TestLastName123");
 
-            List<ContactData> oldAccounts = app.AccHelp.GetAccountList();
+            List<ContactData> oldAccounts = ContactData.GetAll();
 
             if (app.AccHelp.NoAccountsToAction())
             {
@@ -27,7 +27,7 @@ namespace WebAddressbookTests
             app.AccHelp.RemoveFromEditPage();
             app.Navigator.OpenHomePage();
 
-            List<ContactData> newAccounts = app.AccHelp.GetAccountList();
+            List<ContactData> newAccounts = ContactData.GetAll();
             Assert.AreEqual(oldAccounts.Count - 1, newAccounts.Count);
         }
 
@@ -36,7 +36,7 @@ namespace WebAddressbookTests
         {
             ContactData newAccountData = new ContactData("TestName123", "TestLastName123");
 
-            List<ContactData> oldAccounts = app.AccHelp.GetAccountList();
+            List<ContactData> oldAccounts = ContactData.GetAll();
 
             if (app.AccHelp.NoAccountsToAction())
             {
@@ -46,7 +46,7 @@ namespace WebAddressbookTests
             app.AccHelp.RemoveFromMainPage();
             app.Navigator.OpenHomePage();
 
-            List<ContactData> newAccounts = app.AccHelp.GetAccountList();
+            List<ContactData> newAccounts = ContactData.GetAll();
             Assert.AreEqual(oldAccounts.Count - 1, newAccounts.Count);
         }
     }

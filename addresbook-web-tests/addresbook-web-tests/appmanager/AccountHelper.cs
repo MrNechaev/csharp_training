@@ -72,6 +72,12 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public AccountHelper InitAccoutModify(string id)
+        {
+            driver.FindElement(By.XPath($"//input[@name='selected[]' and @value='{id}']//..//../td[8]/a")).Click();
+            return this;
+        }
+
         public AccountHelper InitOpenProperties(int index)
         {
             driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[6].FindElement(By.TagName("a")).Click();
@@ -100,17 +106,30 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public AccountHelper Modify(ContactData newAccountData, ContactData account)
+        public AccountHelper Modify(int index, ContactData newAccountData, ContactData account)
         {
             if (NoAccountsToAction())
             {
                 AddAccount(account);
             }
-            InitAccoutModify(0);
+            InitAccoutModify(index);
             FillAccountInfo(newAccountData);
             SubmitAccountModify();
             return this;
         }
+
+        public AccountHelper Modify(ContactData account, ContactData newAccountData)
+        {
+            if (NoAccountsToAction())
+            {
+                AddAccount(account);
+            }
+            InitAccoutModify(account.Id);
+            FillAccountInfo(newAccountData);
+            SubmitAccountModify();
+            return this;
+        }
+
 
         public AccountHelper RemoveFromEditPage()
         {

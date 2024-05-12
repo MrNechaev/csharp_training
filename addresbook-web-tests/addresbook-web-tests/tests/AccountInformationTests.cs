@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class AccountInformationTests : AuthTestBase
+    public class AccountInformationTests : AccountTestBase
     {
         [Test]
         public void TestAccountInformation()
