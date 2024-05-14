@@ -12,6 +12,10 @@ namespace WebAddressbookTests
         [Test]
         public void TestRemovingContactFromGroup()
         {
+
+            app.AccHelp.NoAccountsToAdd();
+            app.Groups.NoGroupsToAddAccounts();
+
             GroupData group = GroupData.GetAll()[0];
             List<ContactData> oldList = group.GetContacts();
 

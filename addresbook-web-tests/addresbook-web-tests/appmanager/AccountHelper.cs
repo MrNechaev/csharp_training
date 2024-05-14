@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.Office.Interop.Excel;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -238,6 +239,7 @@ namespace WebAddressbookTests
 
         public void AddAccountToGroup(ContactData contact, GroupData group)
         {
+            manager.Navigator.OpenHomePage();
             ClearGroupFilter();
             SelectContactById(contact.Id);
             SelectGroupToAdd(group.Name);
@@ -267,6 +269,7 @@ namespace WebAddressbookTests
 
         internal void RemoveContactFromGroup(ContactData contactsInGroups, GroupData group)
         {
+            manager.Navigator.OpenHomePage();
             SelectGroupToRemove(group.Name);
             SelectContactById(contactsInGroups.Id);
             CommitRemovingContactFromGroup();
@@ -282,6 +285,18 @@ namespace WebAddressbookTests
         private void SelectGroupToRemove(string name)
         {
             new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
+        }
+
+        public void NoAccountsToAdd()
+        {
+            List<ContactData> contacts = ContactData.GetAll();
+
+            if(contacts.Count == 0)
+            {
+                ContactData contact = new ContactData("TestName", "TestLastName");
+
+                AddAccount(contact);
+            }
         }
     }
 }

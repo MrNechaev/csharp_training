@@ -17,6 +17,7 @@ namespace WebAddressbookTests
 
         public GroupHelper Create(GroupData group)
         {
+            manager.Navigator.GoToGroupsPage();
             InitGroupCreation();
             FillGroupForm(group);
             SubmitGroupCreation();
@@ -162,6 +163,18 @@ namespace WebAddressbookTests
         internal int GetGroupCount()
         {
             return driver.FindElements(By.CssSelector("span.group")).Count;
+        }
+
+        internal void NoGroupsToAddAccounts()
+        {
+                List<GroupData> groups = GroupData.GetAll();
+
+                if (groups.Count == 0)
+                {
+                    GroupData group = new GroupData ("TestName", "TestHeaderName", "TestFooterName");
+
+                    Create(group);
+                }
         }
     }
 }

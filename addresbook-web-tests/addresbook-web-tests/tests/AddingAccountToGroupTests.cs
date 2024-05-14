@@ -14,6 +14,10 @@ namespace WebAddressbookTests
         [Test]
         public void TestAddingContactToGroup()
         {
+
+            app.AccHelp.NoAccountsToAdd();
+            app.Groups.NoGroupsToAddAccounts();
+
             GroupData group = GroupData.GetAll()[0];
             List<ContactData> oldList = group.GetContacts();
             ContactData contact = ContactData.GetAll().Except(oldList).First();
