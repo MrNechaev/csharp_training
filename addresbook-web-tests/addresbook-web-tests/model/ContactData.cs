@@ -261,5 +261,12 @@ namespace WebAddressbookTests
             }
         }
 
+        public static string TopContactId()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Accounts.Where(x => x.Deprecated == null) select c).Max(y => y.Id);
+            }
+        }
     }
 }

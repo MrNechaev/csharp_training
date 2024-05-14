@@ -19,8 +19,18 @@ namespace WebAddressbookTests
             app.Groups.NoGroupsToAddAccounts();
 
             GroupData group = GroupData.GetAll()[0];
+            ContactData contact = ContactData.GetAll()[0];
             List<ContactData> oldList = group.GetContacts();
-            ContactData contact = ContactData.GetAll().Except(oldList).First();
+            List<ContactData> contacts = ContactData.GetAll();
+            if (oldList.Count == contacts.Count)
+            {
+                app.AccHelp.AddAccount(new ContactData ("TestName111","TestLastName222"));
+                contact = ContactData.GetAll().First(i => i.Id == ContactData.TopContactId());
+            }
+            else
+            {
+                contact = ContactData.GetAll().Except(oldList).First();
+            }
 
             app.AccHelp.AddAccountToGroup(contact, group);
 
