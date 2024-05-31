@@ -20,6 +20,8 @@ namespace mantis_tests
         public FtpHelper Ftp { get; private set; }
         public ManagementMenuHelper Manager { get; private set; }
         public ProjectManagementHelper Project { get; private set; }
+        public AdminHelper Admin { get; private set; }
+        public APIHelper API { get; private set; }
 
         protected bool acceptNextAlert = true;
 
@@ -33,6 +35,8 @@ namespace mantis_tests
             Ftp = new FtpHelper(this);
             Manager = new ManagementMenuHelper(this, baseURL);
             Project = new ProjectManagementHelper(this);
+            Admin = new AdminHelper(this,baseURL);
+            API = new APIHelper(this);
         }
 
         public static ApplicationManager GetInstance()
@@ -40,7 +44,7 @@ namespace mantis_tests
             if (! app.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
-                newInstance.driver.Url = "http://localhost/mantisbt-2.26.2/login_page.php";
+                newInstance.driver.Url = newInstance.baseURL + "/login_page.php";
                 newInstance.driver.FindElement(By.Name("username")).SendKeys("administrator");
                 newInstance.driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
                 newInstance.driver.FindElement(By.Name("password")).SendKeys("root");
